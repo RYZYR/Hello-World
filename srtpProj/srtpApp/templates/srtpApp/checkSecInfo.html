@@ -1,0 +1,166 @@
+{% extends 'srtpApp/index.html' %}
+{% load static %}
+
+{% block head %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href={% static 'css/public2.css' %}>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <style>
+        p{
+            margin-bottom: 30px;
+            padding-left:50px;
+            font-size: 15px;
+            color: red;
+            text-align: left;
+        }
+        #labelInfo{
+            font-weight:bold;
+            margin-left:30px;
+        }
+        #Info label{
+            margin-top: 10px;
+        }
+        #Info{
+            width: 90%;
+            height:auto;
+            margin-top:30px;
+            margin-left:5%;
+            margin-right:5%;
+            border: 2px dashed;
+            border-color: #3E3E7D;
+            padding: 30px;
+        }
+    </style>
+    <title>学生课堂表现</title>
+{% endblock %}
+
+{% block content %}
+    <!-- 主体部分 -->
+    <div id="body">
+        <div id="picture" style="min-width:700px;height:1000px;margin-top:20px"></div>
+        <div id="tips">tips</div>
+        <span id="point">此图表用来展示学生上课各状态次数统计</span>
+    </div>
+    <label for="Info" id="labelInfo">上课情况总结:</label>
+    <div id="Info">
+        <label for="nosignin">未签到:</label>
+        <p id="nosignin">{{ unsign }}</p>
+        <label for="late">迟到:</label>
+        <p id="late">{{ late }}</p>
+        <label for="early">早退:</label>
+        <p id="early">{{ early }}</p>
+    </div>
+{% endblock %}
+
+{% block jsScript %}
+    <script>
+        var stuName = {{ name|safe }};
+        var focusTime = {{ focus|safe }};
+        var unfocusTime = {{ unfocus|safe }};
+        var AllNum = {{ captureNum }};
+
+        $(document).ready(function() {
+        let obj = new Object();
+        obj = GetRequest();
+        let { course, weeks, weekday, sec } = obj;
+
+        function GetRequest() {
+            var url = location.search; //获取url中"?"符后的字串
+            var theRequest = new Object();
+            if (url.indexOf("?") != -1) {
+                var str = url.substr(1);
+                strs = str.split("&");
+                for (var i = 0; i < strs.length; i++) {
+                    theRequest[strs[i].split("=")[0]] = decodeURI(strs[i].split("=")[1]);
+                }
+            }
+            return theRequest;
+        }
+
+        var chart = {
+            type: 'bar'
+        };
+        var title = {
+            text: `${course} `
+        };
+        var subtitle = {
+            text: `   第${weeks}周  ${weekday}  第${sec}节`
+        };
+        var xAxis = {
+            categories: stuName,
+            title: {
+                text: "学生姓名",
+                align: 'high'
+            }
+        };
+        var yAxis = {
+            min: 0,
+            max: AllNum,
+            title: {
+                text: '课堂状态次数分布',
+                align: 'high'
+            },
+            labels: {
+                overflow: 'justify'
+            }
+        };
+        var tooltip = {
+            valueSuffix: '次'
+        };
+        var plotOptions = {
+            bar: {
+                dataLabels: {
+                    enabled: true
+                }
+            },
+            series: {
+                stacking: 'normal'
+            }
+        };
+        var legend = {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'top',
+            x: -40,
+            y: 100,
+            floating: true,
+            borderWidth: 1,
+            backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+            shadow: true
+        };
+        var credits = {
+            enabled: false
+        };
+
+        var series = [
+            {
+                name: '不专注',
+                data: unfocusTime,
+                color: '#B73838',
+            },
+            {
+                name: '专注',
+                data: focusTime,
+                color: '#6BA4FA',
+            },
+        ];
+
+        var json = {};
+        json.chart = chart;
+        json.title = title;
+        json.subtitle = subtitle;
+        json.tooltip = tooltip;
+        json.xAxis = xAxis;
+        json.yAxis = yAxis;
+        json.series = series;
+        json.plotOptions = plotOptions;
+        json.legend = legend;
+        json.credits = credits;
+        $('#picture').highcharts(json);
+
+    });
+    </script>
+{% endblock %}

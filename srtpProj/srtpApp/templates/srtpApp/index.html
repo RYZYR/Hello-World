@@ -1,0 +1,121 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    {% block head %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href={% static 'css/public.css' %}>
+    <title>学生听课状态检测系统</title>
+    {% endblock %}
+</head>
+
+<body>
+    <!-- 整体页面 -->
+    <div id="container">
+        <!-- header部分 -->
+        <div id="header">
+            <!-- 头部图片 -->
+            <img src={% static 'img/title1.jpg' %} alt="..">
+        </div>
+
+        <!-- 导航部分 -->
+        <div id="banner">
+            <!-- 一级菜单 -->
+            <ul class="banner">
+                <li class="nav_item i1">
+                    <a href={% url 'srtpApp:index' %} class="firsta"><span>首页</span></a>
+                </li>
+                <li class="nav_item i2">
+                    <a href={% url 'srtpApp:newSecInfo' %}><span class="li_name">新增课堂</span></a>
+                </li>
+                <li class="nav_item i4">
+                    <a href={% url 'srtpApp:checkURL' %}><span class="li_name">学生课堂表现</span></a>
+                </li>
+                <li class="nav_item i5">
+                    <a href="https://www.swjtu.edu.cn/"><span class="li_name">学校官网</span></a>
+                </li>
+            </ul>
+        </div>                 
+
+        {% block content %}
+        <!-- 主体部分 -->
+        <div id="body">         
+            <!-- 图文新闻部分 -->
+            <div class="middle">
+                <!-- 图文消息 -->
+                <div class="news">
+                    <!-- 上部 -->
+                    <div class="newstop">
+                        <div class="news_left">新闻动态</div>
+                        <div class="news_right"><a href="https://www.baidu.com/" target="_blank">更多</a></div>
+                    </div>
+                    <div id="hr"></div>
+
+                    <div class="mid_all">
+                        <!-- 中间轮播图加文字新闻 -->
+                        <div class="mid">
+                            <!-- 轮播图 -->
+                            <div id="contain">
+                                <div class="box">
+                                    <div class="img">
+                                        <ul>
+                                            <li class="on"><img src={% static 'img/4.jpg' %} alt=".."></li>
+                                            <li><img src={% static 'img/3.jpg' %} alt=".."></li>
+                                            <li><img src={% static 'img/5.jpg' %} alt=".."></li>
+                                            <li><img src={% static 'img/1.jpg' %} alt=".."></li>
+                                            <li><img src={% static 'img/2.jpg' %} alt=".."></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="checkout">
+                                        <ul>
+                                            <li class="this">1</li>
+                                            <li>2</li>
+                                            <li>3</li>
+                                            <li>4</li>
+                                            <li>5</li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="btn">
+                                        <div class="left_btn">&lt</div>
+                                        <div class="right_btn">&gt</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 下部图文新闻链接 -->
+                            <div class="newsbottom">
+                                <h2>NEWS</h2>
+                                <a target="_blank" href="https://www.qianzhan.com/analyst/detail/220/180727-626786c1.html" title="2018年智慧教室发展现状与趋势分析 将呈现多样化路径教学等方向">2018年智慧教室发展现状与趋势分析</a>
+                                <a target="_blank" href="http://lemd.cuc.edu.cn/2018/1027/c604a16146/page.htm" title="让智慧发生 智慧教室未来前景看好">让智慧发生 智慧教室未来前景看好</a>
+                                <a target="_blank" href="http://mini.eastday.com/bdmip/181028231525795.html" title="一篇文章看懂高校未来智慧教室建设趋势">一篇文章看懂高校未来智慧教室建设趋势</a>
+                                <a target="_blank" href="http://www.qianjia.com/html/2018-10/30_309717.html" title="我国智慧教室行业发展现状及趋势分析">我国智慧教室行业发展现状及趋势分析</a>
+                                <a target="_blank" href="http://www.sohu.com/a/233375232_177272" title="路在何方？智慧教室面临的问题与未来">路在何方？智慧教室面临的问题与未来</a>
+                                <a target="_blank" href="http://www.sohu.com/a/232697017_426518" title="智慧教室面临的“智慧”问题怎么破？">智慧教室面临的“智慧”问题怎么破？</a>
+                                <a target="_blank" href="http://blog.sina.com.cn/s/blog_1523cfcf90102xrm9.html" title="智慧教室在教学中的应用">智慧教室在教学中的应用</a>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        {% endblock %}
+    </div>
+
+    {% block jsScript %}
+    <script src={% static 'js/jquery-3.3.1.min.js' %}></script>
+    <script src={% static 'js/index.js' %}></script>
+    {% endblock %}
+
+</body>
+
+</html>
