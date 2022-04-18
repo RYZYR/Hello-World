@@ -1,9 +1,0 @@
-$(document).ready(function(){
-  if(showFlag){
-    $("#button2").click(function(){
-        alert("进入click")
-        $(this).attr('disabled',true);
-    });
-    alert("没进入click")
-  }
-});
